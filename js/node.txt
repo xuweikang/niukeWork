@@ -1,0 +1,34 @@
+
+
+1.AngularJs 的compile主要是做什么用的？          绑定DOM
+2.相同的域  <==>  相同的域名，端口，协议
+  2.1  jsonp: 同源策略阻止从一个源加载的文档或脚本获取或设置另一个源加载的文档的属性,利用script的跨域能力(通过script的src标签来代替ajax 的url)，这就是jsonp的基础。
+     $("#getJsonpByJquery").click(function () {
+	    $.ajax({
+	        url: 'http://localhost:2701/home/somejsonp',
+	        dataType: "jsonp",
+	        jsonp: "callback",
+	        success: function (data) {
+	            console.log(data)
+	        }
+	    })
+    })
+
+  2.2  document.domain(用来获取当前网页的域名) 跨域
+ 		 这两个域名必须属于同一个基础域名!而且所用的协议，端口都要一致，否则无法利用document.domain进行跨域
+ 		 比如有两个子域名：aaa.xxx.com   bbb.xxx.com
+ 		 可以通过document.domain在两个子域名里同时设置document.domain="xxx.com"来实现基础域名相同，从而达到跨域的目的
+
+  2.3  window.name  
+      http://www.cnblogs.com/rainman/archive/2011/02/21/1960044.html（详细介绍）
+
+3.  e.stopPropagation()  W3C标准定义的阻止事件的冒泡 
+4.  使用 for in 循环数组中的元素会枚举原型链上的所有属性，过滤这些属性的方式是使用hasOwnProperty
+5.
+		 (function() {
+		      var a = b = 5;
+		 })();   
+		console.log(b);
+		console.log(a);
+		函数内的相当于var a=5;b=5;b没有声明就相当于全局变量
+		所以结果是 5，underfind
