@@ -1,4 +1,4 @@
-1. display:none 和visibility:hidden 
+﻿1. display:none 和visibility:hidden 
 
 	    repaint(重绘) ，repaint发生更改时，元素的外观被改变，且在没有改变布局的情况下发生，如改变outline,visibility,background color，不会影响到dom结构渲染。
 
@@ -6,7 +6,7 @@
 
 		所以display:none才会产生reflow
 
-		visibility:hidden只会出发repaint
+		visibility:hidden只会出发 repaint ;
 
 2.
 
