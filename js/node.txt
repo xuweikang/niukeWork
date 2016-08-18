@@ -1,6 +1,36 @@
 
 
 1.AngularJs 的compile主要是做什么用的？          绑定DOM
+
+  1.1 angularjs的服务实质上是  单例对象
+
+      单例模式是一种常用的软件设计模式。在它的核心结构中只包含一个被称为单例的特殊类。通过单例模式可以保证系统中一个类只有一个实例而且该实例易于外界访问，从而方便对实例个数的控制并节约系统资源。如果希望在系统中某个类的对象只能存在一个，单例模式是最好的解决方案。
+
+	  单例模式的要点有三个；一是某个类只能有一个实例；二是它必须自行创建这个实例；三是它必须自行向整个系统提供这个实例。
+
+	  angular 指令的link函数中进行dom操作和事件绑定，服务主要是封装与后台交互的数据接口提供复用性
+
+   1.2 angularjs controller间通信最好使用  广播的方式
+
+   1.3 依赖注入
+          wiki 上的解释是：依赖注入（Dependency Injection，简称DI）是一种软件设计模式，在这种模式下，一个或更多的依赖（或服务）被注入（或者通过引用传递）到一个独立的对象（或客户端）中，然后成为了该客户端状态的一部分。
+          该模式分离了客户端依赖本身行为的创建，这使得程序设计变得松耦合，并遵循了依赖反转和单一职责原则。与服务定位器模式形成直接对比的是，它允许客户端了解客户端如何使用该系统找到依赖
+          "没事你不要来找我，有事我会去找你"
+
+          AngularJS 提供很好的依赖注入机制。以下5个核心组件用来作为依赖注入：
+              value（Value 是一个简单的 javascript 对象，用于向控制器传递值（配置阶段））
+                      // 定义一个模块
+                      var mainApp = angular.module("mainApp", []);
+
+                      // 创建 value 对象 "defaultInput" 并传递数据
+                      mainApp.value("defaultInput", 5);
+              factory（factory 是一个函数用于返回值。在 service 和 controller 需要时创建）
+
+              service
+              provider（通过 provider 创建一个 service、factory等(配置阶段)）
+              constant（constant(常量)用来在配置阶段传递数值，注意这个常量在配置阶段是不可用的）
+                          mainApp.constant("configParam", "constant value");
+
 2.相同的域  <==>  相同的域名，端口，协议
   2.1  jsonp: 同源策略阻止从一个源加载的文档或脚本获取或设置另一个源加载的文档的属性,利用script的跨域能力(通过script的src标签来代替ajax 的url)，这就是jsonp的基础。
      $("#getJsonpByJquery").click(function () {
@@ -32,3 +62,89 @@
 		console.log(a);
 		函数内的相当于var a=5;b=5;b没有声明就相当于全局变量
 		所以结果是 5，underfind
+
+
+6.  javascript的apply()和call()方向的区别
+
+  
+        func.call(this,arg1,arg2,arg3...)=func.apply(this,arguments)=this.func(arg1,arg2,arg3,...)
+
+        1、每个函数都包含两个非继承而来的方法：apply()和call()。 
+		2、他们的用途相同，都是在特定的作用域中调用函数。 
+		3、接收参数方面不同，apply()接收两个参数，一个是函数运行的作用域(this)，另一个是参数数组。
+		call()方法第一个参数与apply()方法相同，但传递给函数的参数必须列举出来
+		4、两个方法都是用来扩充函数赖以运行的作用域
+
+7.  property 原型
+		hasOwnProperty： 是用来判断一个对象是否有你给出名称的属性或对象。不过需要注意的是，此方法无法检查该对象的原型链中是否具有该属性，该属性必须是对象本身的一个成员。
+		isPrototypeOf : 是用来判断要检查其原型链的对象是否存在于指定对象实例中，是则返回true，否则返回false
+
+8. 字符串拼接
+
+        javascript中字符串连接时用Array.join()替换 string += "xx"，换来几十倍的速度提升。
+
+        eg： ["abc","def"].join("")     //join()如果没有参数默认为用“，”隔开
+
+9.  变量问题
+
+        9.1 如：var a = 10；var a = 100；a的值为100
+              var a = 10；var a；a的值为10
+
+        9.2  在全局作用域中声明的变量、函数会变成window对象的属性和方法
+              使用var声明的全局变量不可删除；
+              省略var声明的全局变量可删除。
+              var a = 1;
+              window.b = 2;
+              c = 3;
+              this.d = 4;
+              //Object.getOwnPropertyDescriptor(object, propertyname)
+              //获取指定对象的自身属性描述符。自身属性描述符是指直接在对象上定义（而非从对象的原型继承）的描述符。
+              var aa = Object.getOwnPropertyDescriptor(window,'a'); //configurable:false,enumerable:true,value:2,writable:true
+              var bb = Object.getOwnPropertyDescriptor(window,'b'); //configurable:true,enumerable:true,value:2,writable:true
+              var cc = Object.getOwnPropertyDescriptor(window,'c'); //configurable:true,enumerable:true,value:2,writable:true
+              var dd = Object.getOwnPropertyDescriptor(window,'d'); //configurable:true,enumerable:true,value:2,writable:true
+              delete a; // 无法删除
+              delete b; // 可删除
+              delete c; // 可删除
+              delete d; // 可删除
+
+         9.3  js没有块级作用域
+                var x=1;
+                         if（x）{
+                              var x=2;
+                         }
+                       console.log(x);  //x=2
+
+                 var x=1;
+                    if（x）{
+                      (function(){
+                         var x=2;
+                      })()
+                    }
+                  console.log(x);  //x=1
+
+          9.4 变量提升  （把定义在后面的东东（变量或函数）提升到前面中定义）
+                    (function(){
+                    var a='One';
+                    var b='Two';
+                    var c='Three';
+                    })()
+
+                    相当于
+                    (function(){
+                    var a,b,c;
+                    a='One';
+                    b='Two';
+                    c='Three';
+                    })()
+
+
+ 10. js异步操作
+
+         promise对象：用来传递异步操作的信息
+              Pending（进行中）、Resolved（已完成，又称 Fulfilled）和 Rejected（已失败）
+
+
+
+
+

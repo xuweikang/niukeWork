@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+   function animal(name){
+       this.name=name;
+       this.showname=function(){
+           alert(this.name)
+       }
+   }
+
+    function cat(name){
+        animal.call(this,name)
+    }
+
+    function dog(name){
+        animal.apply(this,name)
+    }
+
+    var cat1= new cat("Black Cat"); //call必须是object
+    var dog1 = new dog(["Black Dog"]); //apply必须是array
+    cat1.showname();
+   dog1.showname();
+
+
+</script>
+
+</body>
+</html>
