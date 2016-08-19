@@ -8,5 +8,32 @@
 
 		visibility:hidden只会出发 repaint ;
 
-2.
+2.bootstrap3
+      兼容情况：windows上兼容IE8  Android和IOs上不支持opera
+      .show和.hidden类可以强制任意元素显示或者隐藏（注意不是.hide）
+
+
+3.http协议（无状态）
+        100-199 用于指定客户端应相应的某些动作。
+        200-299 用于表示请求成功。
+        300-399 用于已经移动的文件并且常被包含在定位头信息中指定新的地址信息。
+        400-499 用于指出客户端的错误。
+        500-599 用于支持服务器错误。
+
+4.css选择器优先排名
+       important>内联>id>class>tag
+
+5.兼容
+       display：inline；IE6-IE7不兼容
+       IE6.0的div的内嵌div可以把父级的div高度撑开，而firefox不可以
+       当设置为三列布局时，ie6.0的float宽度不能达到100%，而Firefox不可以；当设置为2列时，两种浏览器都可以
+
+
+6.css3新增的属性
+      box-shadow                                                        border-radius                                       background-origin
+      border-colors（边框多重颜色）                             opacity                                                 background-clip
+      border-image（图片边框）                                   box-sizing                                              hsl
+      text-shadow                                                         resize                                                    hsla
+      text-overflow                                                        outline                                                  rgba
+      word-wrap                                                           background-size
 
